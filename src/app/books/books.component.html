@@ -1,0 +1,120 @@
+<div class="container">
+<div class="row">
+  <div class="col-md-12" style="margin:1% 5% 0 5%">
+    <button class="btn btn-default pull-right" [routerLink]="['/']">Log Out</button>
+    </div>
+</div>
+</div>
+
+<hr/>
+
+
+<div class="container">
+  <div>
+  
+  <div class="row">  
+    <table class="table table-stripped table-bordered table-hover table-responsive">
+    <caption> <h3> {{title}}<button class="btn btn-default pull-right btn-sm" (click)="openModal()">Add Book</button></h3></caption>
+      <thead>
+    <tr class="success">
+      <th>ID</th>
+      <th>TITLE</th>
+      <th>Description</th>
+      <th>Date </th>
+      <th>EDIT </th>
+      <th>DELETE </th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let p of pagedItems" class="info">
+      <td>{{p.ID}}</td>
+      <td>{{p.Title}}</td>
+      <td  [title]="p.Description" maxlength="300">{{p.Description | slice:0:200}}.... . .</td>
+      <td>{{p.PublishDate | date:'dd-MM-yyyy'}}</td>
+      <td><input type="button" value="EDIT" class="btn btn-success" (click)="openModalEdit(p.ID)"><a href="#editmodal"></a></td>
+      <td><input type="button" value="DELETE"  (click)="deleteBook(p.ID)" class="btn btn-info"></td>
+    </tr>
+    </tbody>
+    </table>
+
+    <!-- pager -->
+    <div class="row">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-8">
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(1)">First</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="setPage(pager.totalPages)">Last</a>
+        </li>
+    </ul>
+  </div>
+  <div class="col-sm-1"></div>
+  </div>
+    </div>
+    </div>
+    
+    <!-- Modal -->
+<div id="editmodal" class="modal fade" role="dialog" hidden>
+  <div class="modal-dialog" >
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit/Add Book</h4>
+      </div>
+      <div class="modal-body">
+		<div class="" *ngIf="editFlag">
+			<div class="row" style="padding:0 5%;">
+			
+					<div class="form-group">
+					  <label><span class="star">*</span>Title:<span id="titleValid" class="pull-right" hidden><em>fields marked with * are required</em></span></label>
+					  <input type="text" [(ngModel)]="bookData.Title" class="form-control" (ngModelChange)="validateBook($event)">
+					</div>
+					<div class="form-group">
+					  <label><span class="star">*</span>Description:<span  class="pull-right" id="descriptionValid" hidden><em>fields marked with * are required</em></span></label>
+					  <textarea class="form-control" rows="5" [(ngModel)]="bookData.Description" (ngModelChange)="validateDesc($event)"></textarea>
+					</div>
+					<div class="form-group">
+					  <label>Publish Date:</label>
+            <!-- <input type="date" class="form-control" [(ngModel)]="bookData.PublishDate" value="bookData.PublishDate | date:'dd-MM-yyyy'"> -->
+            <ng-datepicker [(ngModel)]="bookData.PublishDate"></ng-datepicker>
+					</div>
+					<div class="form-group">
+					  <label>Except:</label>
+					  <textarea class="form-control" rows="5" [(ngModel)]="bookData.Excerpt"></textarea>
+					</div>
+					<div class="form-group">
+					  <label><span class="star">*</span>Page Count:<span id="pageCountValid" class="pull-right" hidden><em>fields marked with * are required</em></span></label>
+					  <input type="number" min=0 max=400 class="form-control" [(ngModel)]="bookData.PageCount" (ngModelChange)="validatePageCount($event)">
+					</div>
+			
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+				<button class="btn btn-default" (click)="addSubmit()">Submit</button>
+				</div>
+				<div class="col-md-6">
+				<button class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>-->
+    </div>
+
+  </div>
+</div>

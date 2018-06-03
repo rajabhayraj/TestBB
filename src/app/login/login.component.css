@@ -1,0 +1,34 @@
+.login-box
+{
+    margin-top:25vh;
+}
+table tbody tr td {
+    padding: 1% 0%;
+}
+table tbody tr td:first-of-type {
+    width:20%;
+}
+input{width:100%}
+.error
+{
+    font-size:12px;
+    color:red;
+}
+.reset-btn
+{
+    background:red;
+    color:#fff;
+    border:none;
+    box-shadow:none;
+}
+.submit-btn
+{
+    background:blue;
+    color:#fff;
+    border:none;
+    box-shadow: none;
+}
+
+input[type="submit"]:disabled {
+    background: lightblue;
+}

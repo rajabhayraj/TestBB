@@ -1,0 +1,81 @@
+<div class="container">
+        <div class="row">
+                <div class="col-sm-12">
+                        <h1 class="text-center">{{title}}</h1>
+                </div>
+        </div>
+        <div class="row login-box">
+
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                        <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
+                                <table width="400">
+                                        <tr>
+
+
+                                                <tr>
+                                                        <td>Username</td>
+                                                        <td>
+                                                                <input type="email" name="email" placeholder="Email ID" [formControl]="complexForm.controls['email']">
+                                                        </td>
+
+                                                </tr>
+                                                <tr>
+                                                        <td></td>
+                                                        <td>
+                                                                <span [hidden]="!complexForm.controls['email'].hasError('minlength')" class="error">
+                                                                        Email shold be minimum of 8 chars
+                                                                </span>
+                                                                <span [hidden]="!complexForm.controls['email'].hasError('email')" class="error">
+                                                                        Email is Invalid
+                                                                </span>
+                                                                <span [hidden]="!complexForm.controls['email'].hasError('required')" class="error">
+                                                                        Email is required
+                                                                </span>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Password</td>
+                                                        <td>
+                                                                <input type="password" name="password" placeholder="******" [formControl]="complexForm.controls['password']">
+                                                        </td>
+
+
+                                                </tr>
+                                                <tr>
+                                                        <td></td>
+                                                        <td>
+                                                                <span [hidden]="complexForm.controls['password'].valid" class="error">
+                                                                        Password is Required
+                                                                </span>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td></td>
+                                                        <td>
+                                                                <input type="submit" class="submit-btn" value="Submit" [disabled]="!complexForm.valid">
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                                {{ message }}
+                                                        </td>
+
+
+                                                        <td>
+                                                                <input type="reset" class="reset-btn" value="Reset">
+                                                        </td>
+
+                                                </tr>
+                                </table>
+
+
+
+                        </form>
+                </div>
+                <div class="col-sm-4"></div>
+        </div>
+</div>
